@@ -1,80 +1,194 @@
 {
   "contex_index": [
-    {"date": "2026-01-08", "index": 1480, "source": "估算（基于月报趋势）"},
-    {"date": "2026-01-15", "index": 1483, "source": "估算（基于月报趋势）"},
-    {"date": "2026-01-22", "index": 1485, "source": "估算（基于月报趋势）"},
-    {"date": "2026-01-29", "index": 1487, "source": "估算（基于月报趋势）"},
-    {"date": "2026-02-05", "index": 1488, "source": "估算（基于月报趋势）"},
-    {"date": "2026-02-12", "index": 1487, "source": "Hellenic Shipping News (SeaNews引用)"},
-    {"date": "2026-02-19", "index": 1487, "source": "SeaNews报道 (New ConTex 2026-02-19)"},
-    {"date": "2026-02-26", "index": 1490, "source": "估算（基于月报趋势）"},
-    {"date": "2026-03-05", "index": 1493, "source": "估算（基于月报趋势）"},
-    {"date": "2026-03-12", "index": 1495, "source": "估算（基于月报趋势）"},
-    {"date": "2026-03-19", "index": 1498, "source": "估算（基于月报趋势）"},
-    {"date": "2026-03-26", "index": 1500, "source": "估算（基于月报趋势）"},
-    {"date": "2026-04-02", "index": 1502, "source": "估算（基于月报趋势）"},
-    {"date": "2026-04-10", "index": 1505, "source": "Hellenic Shipping News Week 15"},
-    {"date": "2026-04-17", "index": 1510, "source": "Hellenic Shipping News Week 16"},
-    {"date": "2026-04-24", "index": 1515, "source": "Hellenic Shipping News Week 17"},
-    {"date": "2026-05-01", "index": 1520, "source": "估算（基于月报趋势）"},
-    {"date": "2026-05-08", "index": 1525, "source": "估算（基于月报趋势）"},
-    {"date": "2026-05-15", "index": 1530, "source": "Hellenic Shipping News Week 20"},
-    {"date": "2026-05-22", "index": 1540, "source": "估算（基于月报趋势）"},
-    {"date": "2026-05-29", "index": 1548, "source": "估算（基于月报趋势）"},
-    {"date": "2026-06-05", "index": 1555, "source": "估算（基于月报趋势）"},
-    {"date": "2026-06-12", "index": 1562, "source": "估算（基于月报趋势）"},
-    {"date": "2026-06-19", "index": 1568, "source": "估算（基于月报趋势）"},
-    {"date": "2026-06-26", "index": 1573, "source": "估算（基于月报趋势）"},
-    {"date": "2026-07-03", "index": 1576, "source": "估算（基于月报趋势）"},
-    {"date": "2026-07-11", "index": 1580, "source": "Hellenic Shipping News Week 28"},
-    {"date": "2026-07-16", "index": 1585, "source": "VHBS官网（2026-07-16）"},
-    {"date": "2026-07-21", "index": 1588, "source": "VHBS官网"},
-    {"date": "2026-07-23", "index": 1590, "source": "VHBS官网"}
+    {
+      "date": "2026-01-08",
+      "index": 1480,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-01-15",
+      "index": 1483,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-01-22",
+      "index": 1485,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-01-29",
+      "index": 1487,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-02-05",
+      "index": 1488,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-02-12",
+      "index": 1487,
+      "source": "Hellenic Shipping News (SeaNews引用)"
+    },
+    {
+      "date": "2026-02-19",
+      "index": 1487,
+      "source": "SeaNews报道 (New ConTex 2026-02-19)"
+    },
+    {
+      "date": "2026-02-26",
+      "index": 1490,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-03-05",
+      "index": 1493,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-03-12",
+      "index": 1495,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-03-19",
+      "index": 1498,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-03-26",
+      "index": 1500,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-04-02",
+      "index": 1502,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-04-10",
+      "index": 1505,
+      "source": "Hellenic Shipping News Week 15"
+    },
+    {
+      "date": "2026-04-17",
+      "index": 1510,
+      "source": "Hellenic Shipping News Week 16"
+    },
+    {
+      "date": "2026-04-24",
+      "index": 1515,
+      "source": "Hellenic Shipping News Week 17"
+    },
+    {
+      "date": "2026-05-01",
+      "index": 1520,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-05-08",
+      "index": 1525,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-05-15",
+      "index": 1532,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-05-22",
+      "index": 1540,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-05-29",
+      "index": 1548,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-06-05",
+      "index": 1555,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-06-12",
+      "index": 1562,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-06-19",
+      "index": 1568,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-06-26",
+      "index": 1573,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-07-03",
+      "index": 1576,
+      "source": "估算（基于月报趋势）"
+    },
+    {
+      "date": "2026-07-11",
+      "index": 1580,
+      "source": "Hellenic Shipping News Week 28"
+    },
+    {
+      "date": "2026-07-16",
+      "index": 1585,
+      "source": "VHBS官网（2026-07-16）"
+    },
+    {
+      "date": "2026-07-21",
+      "index": 1588,
+      "source": "VHBS官网"
+    },
+    {
+      "date": "2026-07-23",
+      "index": 1590,
+      "source": "VHBS官网"
+    }
   ],
   "rates_by_type": [
     {
       "date": "2026-01-15",
       "rates": {
-        "1100_6m": 15986,
-        "1700_12m": 30268,
-        "2500_12m": 33955,
-        "2700_12m": 35768,
-        "3500_12m": 40725,
-        "4250_12m": 50115,
-        "5700_12m": 50115,
-        "6500_12m": 50115
+        "1100": 15986,
+        "1700": 30268,
+        "2500": 33955,
+        "2700": 35768,
+        "3500": 40725,
+        "4250": 50115,
+        "5700": 50115,
+        "6500": 50115
       },
-      "source": "VHBS New ConTex"
+      "source": "6mo/12mo"
     },
     {
       "date": "2026-07-16",
       "rates": {
-        "1100_6m": 18018,
-        "1800_6m": 35268,
-        "2500_12m": 34975,
-        "2700_12m": 37180,
-        "3500_12m": 43365,
-        "4250_12m": 57094,
-        "5700_12m": 50719,
-        "6500_12m": 56472,
-        "2500_24m": 27700,
-        "2700_24m": 29750,
-        "3500_24m": 36500,
-        "4250_24m": 44050,
-        "5700_24m": 50750,
-        "6500_24m": 56500
+        "1100": 18018,
+        "1800": 35268,
+        "2500": 34975,
+        "2700": 37180,
+        "3500": 43365,
+        "4250": 57094,
+        "5700": 50719,
+        "6500": 56472
       },
-      "source": "VHBS官网"
+      "source": "6mo/12mo"
     },
     {
       "date": "2026-07-21",
       "rates": {
-        "1100_6m": 17959,
-        "1800_6m": 35575,
-        "2500_12m": 35068,
-        "2700_12m": 37341,
-        "3500_12m": 43329,
-        "4250_12m": 57220,
+        "1100": 17959,
+        "1800": 35575,
+        "2500": 35068,
+        "2700": 37341,
+        "3500": 43329,
+        "4250": 57220,
         "2500_24m": 27741,
         "2700_24m": 29782,
         "3500_24m": 36533,
@@ -91,12 +205,12 @@
     {
       "date": "2026-07-23",
       "rates": {
-        "1100_6m": 17907,
-        "1800_6m": 35684,
-        "2500_12m": 35136,
-        "2700_12m": 37464,
-        "3500_12m": 43314,
-        "4250_12m": 57455,
+        "1100": 17907,
+        "1800": 35684,
+        "2500": 35136,
+        "2700": 37464,
+        "3500": 43314,
+        "4250": 57455,
         "2500_24m": 27718,
         "2700_24m": 29809,
         "3500_24m": 36525,
@@ -112,31 +226,61 @@
     }
   ],
   "alphaliner_assessments": [
-    {"date": "2026-06-30", "teu": 8500, "rate": 76000, "period": "12m", "source": "Alphaliner late-June assessment"},
-    {"date": "2026-06-30", "teu": 5600, "rate": 64000, "period": "12m", "source": "Alphaliner late-June assessment"},
-    {"date": "2026-06-30", "teu": 4000, "rate": 55000, "period": "12m", "source": "Alphaliner late-June assessment"},
-    {"date": "2026-06-30", "teu": 2500, "rate": 35000, "period": "12m", "source": "Alphaliner late-June assessment"},
-    {"date": "2026-06-30", "teu": 1800, "rate": 33000, "period": "12m", "source": "Alphaliner late-June assessment"}
+    {
+      "date": "2026-06-30",
+      "teu": 8500,
+      "rate": 76000,
+      "source": "Alphaliner late-June assessment (via xindemarinenews)"
+    },
+    {
+      "date": "2026-06-30",
+      "teu": 5600,
+      "rate": 64000,
+      "source": "Alphaliner late-June assessment (via xindemarinenews)"
+    },
+    {
+      "date": "2026-06-30",
+      "teu": 4000,
+      "rate": 55000,
+      "source": "Alphaliner late-June assessment (via xindemarinenews)"
+    },
+    {
+      "date": "2026-06-30",
+      "teu": 2500,
+      "rate": 35000,
+      "source": "Alphaliner late-June assessment (via xindemarinenews)"
+    },
+    {
+      "date": "2026-06-30",
+      "teu": 1800,
+      "rate": 33000,
+      "source": "Alphaliner late-June assessment (via xindemarinenews)"
+    }
   ],
   "clarksons_reference": [
-    {"date": "2026-05-15", "desc": "1年期TC混合参考价(集装箱船)", "rate": 37000, "period": "12m", "source": "Euroseas Q1 2026财报会议引用"},
-    {"date": "2026-05-15", "desc": "10年历史均值", "rate": 23500, "period": "avg", "source": "Euroseas Q1 2026财报会议引用"},
-    {"date": "2026-05-15", "desc": "5年历史均值", "rate": 21500, "period": "avg", "source": "Euroseas Q1 2026财报会议引用"}
-  ],
-  "market_events": [
-    {"date": "2026-01-01", "title": "年初传统淡季", "desc": "运价指数处于年度低位"},
-    {"date": "2026-02-19", "title": "New ConTex触及年内低点", "desc": "1487点后开始回升"},
-    {"date": "2026-03-01", "title": "春季备货旺季启动", "desc": "运价指数持续上行"},
-    {"date": "2026-04-10", "title": "红海绕行持续", "desc": "运力紧张推高运价"},
-    {"date": "2026-05-01", "title": "五一假期影响", "desc": "中国出口短暂放缓"},
-    {"date": "2026-05-15", "title": "克拉克森数据发布", "desc": "1年期TC参考价37,000美元/天"},
-    {"date": "2026-06-01", "title": "燃油附加费上调", "desc": "Bunker Adjustment Factor上涨"},
-    {"date": "2026-06-17", "title": "美伊签署谅解备忘录", "desc": "部分航线运价回调"},
-    {"date": "2026-06-30", "title": "Alphaliner评估发布", "desc": "8500TEU 12个月期租评估价76,000美元/天"},
-    {"date": "2026-07-01", "title": "夏季旺季来临", "desc": "需求持续强劲"},
-    {"date": "2026-07-11", "title": "New ConTex突破1580点", "desc": "创年内新高"},
-    {"date": "2026-07-16", "title": "VHBS数据更新", "desc": "官网首次发布完整分船型数据"},
-    {"date": "2026-07-21", "title": "日租金冲破3万美元", "desc": "1800TEU一年期约32,700美元/天"},
-    {"date": "2026-07-23", "title": "最新数据更新", "desc": "ConTex指数1590点"}
+    {
+      "date": "2026-05-15",
+      "desc": "1年期TC混合参考价(集装箱船)",
+      "rate": 37000,
+      "source": "Euroseas Q1 2026财报会议引用"
+    },
+    {
+      "date": "2026-05-15",
+      "desc": "10年历史均值",
+      "rate": 23500,
+      "source": "Euroseas Q1 2026财报会议引用"
+    },
+    {
+      "date": "2026-05-15",
+      "desc": "10年中位数",
+      "rate": 15000,
+      "source": "Euroseas Q1 2026财报会议引用"
+    },
+    {
+      "date": "2026-06-30",
+      "desc": "集装箱船期租租金(非疫情期间最高)",
+      "rate": null,
+      "source": "Clarksons Research 2026上半年回顾"
+    }
   ]
 }

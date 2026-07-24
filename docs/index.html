@@ -68,16 +68,11 @@
         <section id="rates-by-type" class="section">
             <h2 class="section-title">分船型日租金(USD/天) <span class="source-tag vhbs">VHBS New ConTex</span></h2>
             <div class="controls">
-                <label>选择船型(默认模式):</label>
+                <label>选择船型:</label>
                 <div class="ship-type-filters" id="shipTypeFilters"></div>
-                <label class="period-label">或按期限切换:
-                    <select id="periodSelect">
-                        <option value="default">默认(需手动选择船型)</option>
-                        <option value="6m">6个月期(1100/1800 TEU)</option>
-                        <option value="12m">12个月期(2500-4250 TEU)</option>
-                        <option value="24m">24个月期(大船)</option>
-                    </select>
-                </label>
+                <label>选择期限:</label>
+                <div class="period-filters" id="periodFilters"></div>
+                <button id="clearFilters" style="display:none;margin-left:auto;padding:6px 14px;border:none;border-radius:6px;background:#e53e3e;color:white;font-size:12px;cursor:pointer;">清除选择</button>
             </div>
             <div class="chart-container">
                 <canvas id="ratesChart"></canvas>
@@ -85,9 +80,9 @@
             <div class="chart-note">
                 <p>📈 <strong>交互说明:</strong></p>
                 <ul style="margin:8px 0 0 20px;line-height:1.7;">
-                    <li><strong>默认模式:</strong>不预设任何船型，您可点击上方船型筛选器，选择感兴趣的船型组合后，图表只显示选定的数据</li>
-                    <li><strong>按期限切换:</strong>选择"6个月期/12个月期/24个月期"会自动显示对应期限的船型组</li>
-                    <li>1100/1800 TEU 通常为6个月期，2500-4250 TEU 为12个月期，5700/6500 TEU 见于24个月期</li>
+                    <li><strong>组合选择:</strong>先选择期限(6个月/12个月/24个月)，再选择船型，图表只显示您选中的"船型+期限"组合</li>
+                    <li>同样船型不同期限租金差异明显：通常12个月期 > 6个月期 > 24个月期</li>
+                    <li>图例格式: <strong>3500 TEU · 12个月期</strong></li>
                 </ul>
             </div>
         </section>
@@ -95,7 +90,7 @@
         <!-- Alphaliner 评估 -->
         <section id="alphaliner" class="section">
             <h2 class="section-title">
-                Alphaliner 12个月期租评估价
+                Alphaliner 期租评估价
                 <span class="source-tag alphaliner">Alphaliner</span>
             </h2>
             <div class="table-wrap">
@@ -104,7 +99,8 @@
                         <tr>
                             <th>评估日期</th>
                             <th>船型(TEU)</th>
-                            <th>12个月期租(USD/天)</th>
+                            <th>期限</th>
+                            <th>租金(USD/天)</th>
                             <th>来源</th>
                         </tr>
                     </thead>
@@ -112,7 +108,7 @@
                 </table>
             </div>
             <div class="chart-note">
-                <p>⭐ <strong>权威性:</strong> Alphaliner(AXSMarine旗下)是全球集装箱船队与租赁市场最权威的数据源,12个月期租评估价是租船谈判的重要基准。数据为付费订阅,此处展示公开引用部分。</p>
+                <p>⭐ <strong>权威性:</strong> Alphaliner(AXSMarine旗下)是全球集装箱船队与租赁市场最权威的数据源,期租评估价是租船谈判的重要基准。数据为付费订阅,此处展示公开引用部分。</p>
             </div>
         </section>
 
@@ -128,6 +124,7 @@
                         <tr>
                             <th>日期</th>
                             <th>指标</th>
+                            <th>期限</th>
                             <th>USD/天</th>
                             <th>来源</th>
                         </tr>

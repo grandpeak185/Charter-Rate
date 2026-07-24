@@ -14,7 +14,6 @@ const COLORS = {
     muted: '#a0aec0',
 };
 
-// 船型颜色调色板(3500/4250 为主力船型,冷暖对比更明显)
 const SHIP_TYPE_COLORS = {
     '1100': '#dd6b20',
     '1700': '#805ad5',
@@ -28,18 +27,27 @@ const SHIP_TYPE_COLORS = {
     '8500': '#2d3748',
 };
 
-// 全局状态
+const PERIOD_LABELS = {
+    '6m': '6个月期',
+    '12m': '12个月期',
+    '24m': '24个月期',
+};
+
+const PERIOD_COLORS = {
+    '6m': '#9f7aea',
+    '12m': '#38a169',
+    '24m': '#e53e3e',
+};
+
 let state = {
     timeSeries: null,
     fixtures: null,
     meta: null,
-    activeShipTypes: new Set(),  // 默认不选中，用户手动选择后才显示
-    period: 'default',
+    selectedCombinations: new Set(),
     contexChart: null,
     ratesChart: null,
 };
 
-// ============ 工具函数 ============
 function fmt(num, decimals = 0) {
     if (num === null || num === undefined || isNaN(num)) return '—';
     return Number(num).toLocaleString('en-US', { maximumFractionDigits: decimals });
@@ -56,7 +64,6 @@ function daysBetween(d1, d2) {
     return Math.round((new Date(d2) - new Date(d1)) / 86400000);
 }
 
-// ============ 数据加载 ============
 async function loadData() {
     const tsResp = await fetch('data/time_series.json');
     const fxResp = await fetch('data/fixtures.json');
@@ -66,7 +73,6 @@ async function loadData() {
     state.meta = await metaResp.json();
 }
 
-// ============ 更新信息 ============
 function renderUpdateInfo() {
     const el = document.getElementById('updateInfo');
     const m = state.meta;
@@ -83,12 +89,10 @@ function renderUpdateInfo() {
     `;
 }
 
-// ============ 概览卡片 ============
 function renderOverview() {
     const grid = document.getElementById('overviewGrid');
     const ts = state.timeSeries;
 
-    // 最新 ConTex 指数
     const contexData = ts.contex_index.filter(d => d.index !== null);
     const latestContex = contexData[contexData.length - 1];
     const prevContex = contexData[contexData.length - 2];
@@ -97,20 +101,15 @@ function renderOverview() {
     const contexChangePct = (contexChange !== null && prevContex.index)
         ? (contexChange / prevContex.index * 100) : null;
 
-    // 最新分船型数据
     const latestRates = ts.rates_by_type[ts.rates_by_type.length - 1];
-    const midRate = latestRates && latestRates.rates['2700'];
 
-    // Alphaliner 8500 TEU
     const alphaLatest = ts.alphaliner_assessments.find(a => a.teu === 8500);
     const alphaMid = ts.alphaliner_assessments.find(a => a.teu === 5600);
 
-    // Clarksons 参考
     const clarkLatest = ts.clarksons_reference.find(c => c.rate !== null && c.desc.includes('1年期'));
 
     const cards = [];
 
-    // 卡1: New ConTex 指数
     if (latestContex) {
         const changeClass = contexChange > 0 ? 'up' : contexChange < 0 ? 'down' : 'flat';
         const changeIcon = contexChange > 0 ? '▲' : contexChange < 0 ? '▼' : '—';
@@ -125,18 +124,17 @@ function renderOverview() {
         });
     }
 
-    // 卡2: 2700 TEU 12月期租(中等船型代表)
+    const midRate = latestRates && latestRates.rates['3500_12m'];
     if (midRate) {
         cards.push({
             cls: 'vhbs',
-            label: '2700 TEU 12月期租',
+            label: '3500 TEU 12月期租',
             value: '$' + fmt(midRate),
             sub: `${fmtDate(latestRates.date)} · ${latestRates.source}`,
-            change: '<div class="card-change flat">中等船型基准</div>'
+            change: '<div class="card-change flat">主力船型基准</div>'
         });
     }
 
-    // 卡3: Alphaliner 8500 TEU
     if (alphaLatest) {
         cards.push({
             cls: 'alphaliner',
@@ -147,7 +145,6 @@ function renderOverview() {
         });
     }
 
-    // 卡4: 1年期TC混合参考
     if (clarkLatest) {
         cards.push({
             cls: 'clarkson',
@@ -158,7 +155,6 @@ function renderOverview() {
         });
     }
 
-    // 卡5: Fixtures 数量
     if (state.fixtures) {
         const recent = state.fixtures.filter(f =>
             daysBetween(f.date, '2026-07-24') <= 90
@@ -182,12 +178,10 @@ function renderOverview() {
     `).join('');
 }
 
-// ============ New ConTex 指数图表 ============
 function renderContexChart() {
     const ctx = document.getElementById('contexChart').getContext('2d');
     const data = state.timeSeries.contex_index.filter(d => d.index !== null);
 
-    // 标注来源:估算 vs 实际
     const estimatedPoints = [];
     const actualPoints = [];
 
@@ -264,72 +258,126 @@ function renderContexChart() {
     });
 }
 
-// ============ 船型筛选器 ============
-function renderShipTypeFilters() {
-    const container = document.getElementById('shipTypeFilters');
+function renderCombinationFilters() {
     const allTypes = ['1100', '1700', '1800', '2500', '2700', '3500', '4250', '5700', '6500'];
+    const allPeriods = ['6m', '12m', '24m'];
 
-    container.innerHTML = allTypes.map(t => {
-        const isActive = state.activeShipTypes.has(t);
+    const typeContainer = document.getElementById('shipTypeFilters');
+    const periodContainer = document.getElementById('periodFilters');
+
+    typeContainer.innerHTML = allTypes.map(t => {
         const color = SHIP_TYPE_COLORS[t] || COLORS.muted;
+        const hasData = state.timeSeries.rates_by_type.some(snap =>
+            allPeriods.some(p => snap.rates[`${t}_${p}`] !== undefined)
+        );
         return `
-            <div class="ship-type-chip ${isActive ? 'active' : ''}" data-type="${t}">
+            <div class="ship-type-chip ${hasData ? '' : 'disabled'}" data-type="${t}">
                 <span class="color-dot" style="background:${color}"></span>
                 ${t} TEU
             </div>
         `;
     }).join('');
 
-    container.querySelectorAll('.ship-type-chip').forEach(chip => {
+    periodContainer.innerHTML = allPeriods.map(p => {
+        const color = PERIOD_COLORS[p];
+        return `
+            <div class="period-chip" data-period="${p}" style="--period-color:${color}">
+                ${PERIOD_LABELS[p]}
+            </div>
+        `;
+    }).join('');
+
+    typeContainer.querySelectorAll('.ship-type-chip').forEach(chip => {
+        if (chip.classList.contains('disabled')) return;
         chip.addEventListener('click', () => {
-            const t = chip.dataset.type;
-            if (state.activeShipTypes.has(t)) {
-                state.activeShipTypes.delete(t);
-                chip.classList.remove('active');
-            } else {
-                state.activeShipTypes.add(t);
-                chip.classList.add('active');
+            const teu = chip.dataset.type;
+            const selectedPeriods = periodContainer.querySelectorAll('.period-chip.active').map(c => c.dataset.period);
+            if (selectedPeriods.length === 0) {
+                showToast('请先选择期限');
+                return;
             }
+            selectedPeriods.forEach(p => {
+                const combo = `${teu}_${p}`;
+                if (state.selectedCombinations.has(combo)) {
+                    state.selectedCombinations.delete(combo);
+                } else {
+                    state.selectedCombinations.add(combo);
+                }
+            });
+            updateFilterUI();
             renderRatesChart();
         });
     });
 
-    document.getElementById('periodSelect').addEventListener('change', (e) => {
-        state.period = e.target.value;
+    periodContainer.querySelectorAll('.period-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const p = chip.dataset.period;
+            const isActive = chip.classList.contains('active');
+
+            if (!isActive) {
+                chip.classList.add('active');
+                const selectedTypes = typeContainer.querySelectorAll('.ship-type-chip.active').map(c => c.dataset.type);
+                selectedTypes.forEach(t => {
+                    state.selectedCombinations.add(`${t}_${p}`);
+                });
+            } else {
+                chip.classList.remove('active');
+                allTypes.forEach(t => {
+                    state.selectedCombinations.delete(`${t}_${p}`);
+                });
+            }
+            updateFilterUI();
+            renderRatesChart();
+        });
+    });
+
+    const clearBtn = document.getElementById('clearFilters');
+    clearBtn.addEventListener('click', () => {
+        state.selectedCombinations.clear();
+        updateFilterUI();
         renderRatesChart();
     });
+
+    function updateFilterUI() {
+        typeContainer.querySelectorAll('.ship-type-chip').forEach(chip => {
+            const teu = chip.dataset.type;
+            const hasAnyPeriod = allPeriods.some(p => state.selectedCombinations.has(`${teu}_${p}`));
+            chip.classList.toggle('active', hasAnyPeriod);
+        });
+
+        periodContainer.querySelectorAll('.period-chip').forEach(chip => {
+            const p = chip.dataset.period;
+            const hasAnyType = allTypes.some(t => state.selectedCombinations.has(`${t}_${p}`));
+            chip.classList.toggle('active', hasAnyType);
+        });
+
+        const selectedCount = state.selectedCombinations.size;
+        clearBtn.style.display = selectedCount > 0 ? 'inline-block' : 'none';
+    }
 }
 
-// ============ 分船型日租金图表 ============
+function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    toast.style.cssText = 'position:fixed;top:20px;right:20px;padding:12px 24px;background:#2d3748;color:white;border-radius:8px;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.3);animation:slideIn 0.3s ease;';
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
 function renderRatesChart() {
     const ctx = document.getElementById('ratesChart').getContext('2d');
     const allSnapshots = state.timeSeries.rates_by_type;
+    const combinations = Array.from(state.selectedCombinations);
 
-    // 确定要显示的船型(根据期限筛选)
-    let typesToShow;
-    if (state.period === '6m') {
-        // 6个月期：固定显示1100/1800
-        typesToShow = ['1100', '1800'];
-    } else if (state.period === '12m') {
-        // 12个月期：固定显示2500/2700/3500/4250
-        typesToShow = ['2500', '2700', '3500', '4250'];
-    } else if (state.period === '24m') {
-        // 24个月期：固定显示大船
-        typesToShow = ['2500_24m', '2700_24m', '3500_24m', '4250_24m', '5700_24m', '6500_24m'];
-    } else {
-        // default 模式：只显示用户在筛选器中选中的船型
-        typesToShow = Array.from(state.activeShipTypes);
-        // 过滤掉带后缀的（default模式下只显示主船型）
-        typesToShow = typesToShow.filter(t => !t.includes('_'));
-    }
-
-    // 如果没有任何选中的船型，显示友好提示
-    if (typesToShow.length === 0) {
+    if (combinations.length === 0) {
         if (state.ratesChart) {
             state.ratesChart.destroy();
             state.ratesChart = null;
         }
-        // 在 canvas 上方或旁边显示提示
         const chartContainer = document.querySelector('#ratesChart').parentElement;
         let hint = chartContainer.querySelector('.no-data-hint');
         if (!hint) {
@@ -339,27 +387,25 @@ function renderRatesChart() {
             chartContainer.style.position = 'relative';
             chartContainer.appendChild(hint);
         }
-        hint.innerHTML = '👆 请在上方选择船型，或切换期限以查看对应数据';
+        hint.innerHTML = '👆 请选择船型和期限的组合';
         return;
     }
 
-    // 移除提示（如果存在）
     const chartContainer = document.querySelector('#ratesChart').parentElement;
     const existingHint = chartContainer.querySelector('.no-data-hint');
     if (existingHint) existingHint.remove();
 
-    // 构建每个船型的数据序列
-    const datasets = typesToShow.map(t => {
-        const color = SHIP_TYPE_COLORS[t.replace('_24m', '').replace('_12m', '')] || COLORS.muted;
-        const label = t.includes('_24m')
-            ? t.replace('_24m', '') + ' TEU (24m期)'
-            : t.includes('_12m')
-                ? t.replace('_12m', '') + ' TEU (12m期)'
-                : t + ' TEU';
+    const datasets = combinations.map(combo => {
+        const [teu, period] = combo.split('_');
+        const baseColor = SHIP_TYPE_COLORS[teu] || COLORS.muted;
+        const periodColor = PERIOD_COLORS[period] || COLORS.muted;
+        const color = period === '6m' ? baseColor + 'CC' : period === '12m' ? baseColor : baseColor + '88';
+
+        const label = `${teu} TEU · ${PERIOD_LABELS[period]}`;
 
         const data = [];
         allSnapshots.forEach(snap => {
-            const r = snap.rates[t];
+            const r = snap.rates[combo];
             if (r !== undefined && r !== null) {
                 data.push({ x: snap.date, y: r, source: snap.source });
             }
@@ -370,7 +416,8 @@ function renderRatesChart() {
             data,
             borderColor: color,
             backgroundColor: color + '20',
-            borderWidth: 2.5,
+            borderWidth: period === '12m' ? 3 : 2,
+            borderDash: period === '6m' ? [6, 4] : [],
             fill: false,
             tension: 0.3,
             pointRadius: 5,
@@ -421,7 +468,6 @@ function renderRatesChart() {
     });
 }
 
-// ============ Alphaliner 表 ============
 function renderAlphalinerTable() {
     const tbody = document.querySelector('#alphalinerTable tbody');
     const rows = state.timeSeries.alphaliner_assessments;
@@ -430,13 +476,13 @@ function renderAlphalinerTable() {
         <tr>
             <td>${fmtDate(r.date)}</td>
             <td><strong>${fmt(r.teu)} TEU</strong></td>
+            <td>${PERIOD_LABELS[r.period] || r.period}</td>
             <td class="num">$${fmt(r.rate)}/天</td>
             <td class="source-cell">${r.source}</td>
         </tr>
     `).join('');
 }
 
-// ============ Clarksons 表 ============
 function renderClarksonsTable() {
     const tbody = document.querySelector('#clarksonsTable tbody');
     const rows = state.timeSeries.clarksons_reference;
@@ -445,18 +491,17 @@ function renderClarksonsTable() {
         <tr>
             <td>${fmtDate(r.date)}</td>
             <td>${r.desc}</td>
+            <td>${r.period === 'avg' ? '历史均值' : PERIOD_LABELS[r.period] || r.period}</td>
             <td class="num">${r.rate !== null ? '$' + fmt(r.rate) + '/天' : '— (历史最高,非疫情期间)'}</td>
             <td class="source-cell">${r.source}</td>
         </tr>
     `).join('');
 }
 
-// ============ Fixtures 表 ============
 function renderFixturesTable() {
     const tbody = document.querySelector('#fixturesTable tbody');
     let rows = [...state.fixtures];
 
-    // 搜索
     const q = document.getElementById('fixtureSearch').value.trim().toLowerCase();
     if (q) {
         rows = rows.filter(f =>
@@ -466,7 +511,6 @@ function renderFixturesTable() {
         );
     }
 
-    // 排序
     const sortBy = document.getElementById('fixtureSort').value;
     rows.sort((a, b) => {
         switch (sortBy) {
@@ -485,7 +529,6 @@ function renderFixturesTable() {
     }
 
     tbody.innerHTML = rows.map(f => {
-        // 行样式: 新造船/现代船/老旧船
         let rowClass = '';
         if (f.vessel && f.vessel.includes('新造船')) rowClass = 'row-newbuild';
         else if (f.built && f.built >= 2015) rowClass = 'row-modern';
@@ -506,20 +549,18 @@ function renderFixturesTable() {
     }).join('');
 }
 
-// ============ 时间线 ============
 function renderTimeline() {
     const container = document.getElementById('timeline');
-    const events = state.meta.market_events || [];
+    const events = state.timeSeries.market_events || [];
 
     container.innerHTML = events.map(e => `
         <div class="timeline-item">
-            <div class="tl-date">${fmtDate(e[0])}</div>
-            <div class="tl-text">${e[1]}</div>
+            <div class="tl-date">${fmtDate(e.date)}</div>
+            <div class="tl-text"><strong>${e.title}</strong>: ${e.desc}</div>
         </div>
     `).join('');
 }
 
-// ============ 数据源表 ============
 function renderSourcesTable() {
     const tbody = document.querySelector('#sourcesTable tbody');
     const sources = state.meta.data_sources || [];
@@ -542,14 +583,13 @@ function renderSourcesTable() {
     `).join('');
 }
 
-// ============ 初始化 ============
 async function init() {
     try {
         await loadData();
         renderUpdateInfo();
         renderOverview();
         renderContexChart();
-        renderShipTypeFilters();
+        renderCombinationFilters();
         renderRatesChart();
         renderAlphalinerTable();
         renderClarksonsTable();
@@ -557,7 +597,6 @@ async function init() {
         renderTimeline();
         renderSourcesTable();
 
-        // fixtures 搜索/排序事件
         document.getElementById('fixtureSearch').addEventListener('input', renderFixturesTable);
         document.getElementById('fixtureSort').addEventListener('change', renderFixturesTable);
     } catch (err) {

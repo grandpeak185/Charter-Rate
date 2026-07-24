@@ -308,6 +308,46 @@ a:hover { text-decoration: underline; }
     border-radius: 50%;
 }
 
+.ship-type-chip.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.period-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.period-chip {
+    padding: 6px 14px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+}
+
+.period-chip:hover { border-color: var(--primary); }
+
+.period-chip.active {
+    background: var(--period-color, var(--primary));
+    color: #fff;
+    border-color: var(--period-color, var(--primary));
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
 /* ========== Tables ========== */
 .table-wrap {
     background: var(--surface);

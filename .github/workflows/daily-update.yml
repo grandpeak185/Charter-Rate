@@ -1,0 +1,71 @@
+name: 每日数据更新
+
+# 每日北京时间 12:00 自动触发(UTC 04:00)
+# 北京时间 = UTC+8,所以 BJT 12:00 = UTC 04:00
+on:
+  schedule:
+    - cron: '0 4 * * *'  # 每日 UTC 04:00 = 北京时间 12:00
+  workflow_dispatch:       # 允许手动触发
+
+permissions:
+  contents: write           # 允许提交到仓库
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "daily-update"
+  cancel-in-progress: false
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 显示执行时间(北京时间)
+        run: |
+          echo "执行时间(UTC): $(date -u '+%Y-%m-%d %H:%M:%S')"
+          echo "执行时间(BJT): $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+
+      - name: 运行数据抓取脚本
+        run: |
+          python3 scripts/fetch_data.py
+
+      - name: 检查数据文件
+        run: |
+          echo "=== docs/data/ ==="
+          ls -la docs/data/
+          echo "=== time_series.json 前50行 ==="
+          head -50 docs/data/time_series.json
+
+      - name: 提交数据更新
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/ data/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "无数据变化,跳过提交"
+          else
+            git commit -m "数据更新: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S') BJT"
+            git push
+          fi
+
+      - name: 配置 GitHub Pages
+        uses: actions/configure-pages@v4
+        if: always()
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        if: always()

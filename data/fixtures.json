@@ -1,0 +1,352 @@
+[
+  {
+    "date": "2026-02-10",
+    "vessel": "Pavo J",
+    "teu": 962,
+    "built": null,
+    "charterer": "Unifeeder",
+    "period": "12个月",
+    "rate": 16900,
+    "source": "Lloyd's List 2026-02-10"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Cosco 5艘现代船(批量)",
+    "teu": 2400,
+    "built": null,
+    "charterer": "Cosco(延期)",
+    "period": "30-34个月",
+    "rate": 25000,
+    "source": "Lloyd's List 2026-02-10 (Braemar)"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Santa Loukia",
+    "teu": 1700,
+    "built": 2015,
+    "charterer": "BG Freight",
+    "period": "12个月",
+    "rate": 30000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Contship Sky",
+    "teu": 1100,
+    "built": 2006,
+    "charterer": "CFS",
+    "period": "5-7个月",
+    "rate": 17250,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "CMA CGM Port Gdynia",
+    "teu": 3100,
+    "built": 2011,
+    "charterer": "CMA CGM(延期)",
+    "period": "30-36个月",
+    "rate": 30000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Magdalena Schulte",
+    "teu": 2300,
+    "built": 2019,
+    "charterer": "CMA CGM(延期)",
+    "period": "35-37个月",
+    "rate": 25000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Melchior Schulte",
+    "teu": 2300,
+    "built": 2015,
+    "charterer": "CMA CGM",
+    "period": "36个月",
+    "rate": 25000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Teoman A",
+    "teu": 2500,
+    "built": 2001,
+    "charterer": "CMA CGM",
+    "period": "36个月",
+    "rate": 23000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Belitaki",
+    "teu": 1700,
+    "built": 1998,
+    "charterer": "CMA CGM(延期)",
+    "period": "10-14个月",
+    "rate": 21000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Contship Ice",
+    "teu": 1300,
+    "built": 2011,
+    "charterer": "CMA CGM(延期)",
+    "period": "23-25个月",
+    "rate": 20000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Contship Rex II",
+    "teu": 1400,
+    "built": 2008,
+    "charterer": "CMA CGM(延期)",
+    "period": "24个月",
+    "rate": 20000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Elreedy Star",
+    "teu": 1300,
+    "built": 1998,
+    "charterer": "CMA CGM(延期)",
+    "period": "6-8个月",
+    "rate": 16000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Contship Uno",
+    "teu": 1100,
+    "built": 2007,
+    "charterer": "CMA CGM(延期)",
+    "period": "9-12个月",
+    "rate": 15000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Natal",
+    "teu": 3400,
+    "built": 2007,
+    "charterer": "CoscoSL(延期)",
+    "period": "30-32个月",
+    "rate": 29500,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Mary Schulte",
+    "teu": 2300,
+    "built": 2015,
+    "charterer": "CoscoSL(延期)",
+    "period": "30-34个月",
+    "rate": 25000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "EM Spetses",
+    "teu": 1700,
+    "built": 2007,
+    "charterer": "CoscoSL(延期)",
+    "period": "22-24个月",
+    "rate": 21500,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Vela Nova",
+    "teu": 1100,
+    "built": 1996,
+    "charterer": "Doris Shipping",
+    "period": "11-13个月",
+    "rate": 13000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Cape Hellas",
+    "teu": 2800,
+    "built": 2021,
+    "charterer": "Hapag-Lloyd",
+    "period": "36个月",
+    "rate": 29950,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Matilde A",
+    "teu": 1200,
+    "built": 2004,
+    "charterer": "Hapag-Lloyd(延期)",
+    "period": "12-14个月",
+    "rate": 17000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Spil Niken",
+    "teu": 2500,
+    "built": 2003,
+    "charterer": "Maersk(延期)",
+    "period": "18-20个月",
+    "rate": 26000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Spil Nisaka",
+    "teu": 2500,
+    "built": 2002,
+    "charterer": "Maersk(延期)",
+    "period": "18-20个月",
+    "rate": 26000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-02-15",
+    "vessel": "Varamo",
+    "teu": 1300,
+    "built": 2007,
+    "charterer": "Maersk(延期)",
+    "period": "18-20个月",
+    "rate": 19000,
+    "source": "Dynamar Monthly Feb 2026"
+  },
+  {
+    "date": "2026-03-09",
+    "vessel": "SCI Chennai",
+    "teu": 4400,
+    "built": null,
+    "charterer": "CMA CGM",
+    "period": "4-5个月",
+    "rate": 45000,
+    "source": "The Loadstar 2026-03-09 (Braemar)"
+  },
+  {
+    "date": "2026-03-09",
+    "vessel": "Gulf Barakah",
+    "teu": null,
+    "built": null,
+    "charterer": "Maersk(延期)",
+    "period": "36个月",
+    "rate": 36000,
+    "source": "The Loadstar 2026-03-09 (Braemar)"
+  },
+  {
+    "date": "2026-03-09",
+    "vessel": "Wadi Duka",
+    "teu": 3534,
+    "built": null,
+    "charterer": "CMA CGM",
+    "period": "30-33个月",
+    "rate": 30250,
+    "source": "The Loadstar 2026-03-09 (Braemar)"
+  },
+  {
+    "date": "2026-03-09",
+    "vessel": "Spil Caya",
+    "teu": 3534,
+    "built": null,
+    "charterer": "Maersk",
+    "period": "30-34个月",
+    "rate": 30250,
+    "source": "The Loadstar 2026-03-09 (Braemar)"
+  },
+  {
+    "date": "2026-03-09",
+    "vessel": "Marina Sapphire",
+    "teu": 1577,
+    "built": null,
+    "charterer": "Maersk(延期)",
+    "period": "22-24个月",
+    "rate": 22000,
+    "source": "The Loadstar 2026-03-09 (Braemar)"
+  },
+  {
+    "date": "2026-03-09",
+    "vessel": "Medkon Sun",
+    "teu": 966,
+    "built": null,
+    "charterer": "CMA CGM(延期)",
+    "period": "9-12个月",
+    "rate": 15000,
+    "source": "The Loadstar 2026-03-09 (Braemar)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "新造船(2艘)",
+    "teu": 5300,
+    "built": 2027,
+    "charterer": "(未披露)",
+    "period": "36个月",
+    "rate": 30000,
+    "source": "Braemar 2026-07 (头条新闻)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "老旧巴拿马型",
+    "teu": null,
+    "built": null,
+    "charterer": "(未披露)",
+    "period": "—",
+    "rate": 30000,
+    "source": "Braemar 2026-07 (日租金3万美元报道)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "新造船(3艘)",
+    "teu": 3000,
+    "built": 2027,
+    "charterer": "(未披露)",
+    "period": "36个月",
+    "rate": 28000,
+    "source": "Braemar 2026-07 (头条新闻)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "Cebu",
+    "teu": 2450,
+    "built": null,
+    "charterer": "OOCL(延期)",
+    "period": "24个月",
+    "rate": 24900,
+    "source": "Braemar 2026-07 (头条新闻)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "Meratus Jayakarta",
+    "teu": 2474,
+    "built": 2005,
+    "charterer": "Maersk(延期)",
+    "period": "24个月",
+    "rate": 26500,
+    "source": "Braemar 2026-07 (头条新闻)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "Meratus Jayagiri",
+    "teu": 2450,
+    "built": 2000,
+    "charterer": "Maersk(延期)",
+    "period": "24个月",
+    "rate": 26500,
+    "source": "Braemar 2026-07 (头条新闻)"
+  },
+  {
+    "date": "2026-07-15",
+    "vessel": "Expert",
+    "teu": 1025,
+    "built": null,
+    "charterer": "Unifeeder(延期)",
+    "period": "12个月",
+    "rate": 18000,
+    "source": "Braemar 2026-07 (头条新闻)"
+  }
+]

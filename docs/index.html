@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>集装箱船期租租金行情 — 多源数据看板 | Charter Rate Tracker</title>
+    <meta name="description" content="集装箱船期租租金行情看板:整合VHBS New ConTex、Alphaliner、Clarkson、Braemar等多源权威数据,自2026年1月起,每日北京时间12:00自动更新。租船决策参考。">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- date adapter for time scale -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-grid">
+                <div>
+                    <h1>集装箱船期租租金行情看板</h1>
+                    <p class="subtitle">Container Ship Time-Charter Rate Tracker · 自2026年1月起 · 多源权威数据整合</p>
+                </div>
+                <div class="update-info" id="updateInfo">
+                    <span class="loading">加载中…</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="quick-nav container">
+        <a href="#overview">概览</a>
+        <a href="#contex-chart">综合指数走势</a>
+        <a href="#rates-by-type">分船型租金</a>
+        <a href="#alphaliner">Alphaliner评估</a>
+        <a href="#fixtures">成交案例</a>
+        <a href="#timeline">市场事件</a>
+        <a href="#sources">数据源说明</a>
+        <a href="#disclaimer">免责声明</a>
+    </nav>
+
+    <main class="container">
+
+        <!-- 概览卡片 -->
+        <section id="overview" class="section">
+            <h2 class="section-title">市场概览 <span class="badge">实时</span></h2>
+            <div class="overview-grid" id="overviewGrid">
+                <div class="card loading-card"><span>加载中…</span></div>
+            </div>
+        </section>
+
+        <!-- New ConTex 指数走势 -->
+        <section id="contex-chart" class="section">
+            <h2 class="section-title">
+                New ConTex 综合指数走势
+                <span class="source-tag vhbs">VHBS</span>
+            </h2>
+            <div class="chart-container">
+                <canvas id="contexChart"></canvas>
+            </div>
+            <div class="chart-note">
+                <p>📊 <strong>解读:</strong> New ConTex 是汉堡不莱梅船舶经纪人协会(VHBS)发布的集装箱船期租指数,基于6个代表性船型(1100/1800/2500/2700/3500/4250 TEU)评估。<strong>1500点以上</strong>为历史高位区间。</p>
+                <p class="muted">数据来源:VHBS官网(最近2期)+ Hellenic Shipping News转载 + 公开报道整理。估算数据点已注明。完整历史需VHBS会员订阅。</p>
+            </div>
+        </section>
+
+        <!-- 分船型日租金 -->
+        <section id="rates-by-type" class="section">
+            <h2 class="section-title">分船型日租金(USD/天) <span class="source-tag vhbs">VHBS New ConTex</span></h2>
+            <div class="controls">
+                <label>选择船型:</label>
+                <div class="ship-type-filters" id="shipTypeFilters"></div>
+                <label class="period-label">期限:
+                    <select id="periodSelect">
+                        <option value="default">默认(6/12个月)</option>
+                        <option value="6m">6个月期</option>
+                        <option value="12m">12个月期</option>
+                        <option value="24m">24个月期</option>
+                    </select>
+                </label>
+            </div>
+            <div class="chart-container">
+                <canvas id="ratesChart"></canvas>
+            </div>
+            <div class="chart-note">
+                <p>📈 <strong>说明:</strong> 1100/1800 TEU 为6个月期,2500/2700/3500/4250 TEU 为12个月期;24个月期为大船附加信息列。期租期限越长,租金通常越高。</p>
+            </div>
+        </section>
+
+        <!-- Alphaliner 评估 -->
+        <section id="alphaliner" class="section">
+            <h2 class="section-title">
+                Alphaliner 12个月期租评估价
+                <span class="source-tag alphaliner">Alphaliner</span>
+            </h2>
+            <div class="table-wrap">
+                <table class="data-table" id="alphalinerTable">
+                    <thead>
+                        <tr>
+                            <th>评估日期</th>
+                            <th>船型(TEU)</th>
+                            <th>12个月期租(USD/天)</th>
+                            <th>来源</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="chart-note">
+                <p>⭐ <strong>权威性:</strong> Alphaliner(AXSMarine旗下)是全球集装箱船队与租赁市场最权威的数据源,12个月期租评估价是租船谈判的重要基准。数据为付费订阅,此处展示公开引用部分。</p>
+            </div>
+        </section>
+
+        <!-- Clarksons 参考 -->
+        <section id="clarksons" class="section">
+            <h2 class="section-title">
+                Clarksons / 行业参考价
+                <span class="source-tag clarkson">Clarkson</span>
+            </h2>
+            <div class="table-wrap">
+                <table class="data-table" id="clarksonsTable">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>指标</th>
+                            <th>USD/天</th>
+                            <th>来源</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="chart-note">
+                <p>📊 <strong>参考意义:</strong> Clarksons Research 的ClarkSea Index 是跨船型综合基准。1年期TC混合参考价与10年均值的对比,可判断当前市场处于周期高位还是低位。</p>
+            </div>
+        </section>
+
+        <!-- Fixtures 成交案例 -->
+        <section id="fixtures" class="section">
+            <h2 class="section-title">
+                租船成交案例(Fixtures)
+                <span class="source-tag braemar">多源媒体</span>
+            </h2>
+            <div class="controls">
+                <input type="text" id="fixtureSearch" placeholder="🔍 搜索船名/租家/船型…">
+                <select id="fixtureSort">
+                    <option value="date-desc">日期 ↓</option>
+                    <option value="date-asc">日期 ↑</option>
+                    <option value="rate-desc">租金 ↓</option>
+                    <option value="rate-asc">租金 ↑</option>
+                    <option value="teu-desc">船型 ↓</option>
+                </select>
+            </div>
+            <div class="table-wrap">
+                <table class="data-table fixtures-table" id="fixturesTable">
+                    <thead>
+                        <tr>
+                            <th>成交日期</th>
+                            <th>船名</th>
+                            <th>船型(TEU)</th>
+                            <th>建造年</th>
+                            <th>租家</th>
+                            <th>期限</th>
+                            <th>租金(USD/天)</th>
+                            <th>来源</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="chart-note">
+                <p>💡 <strong>租船决策用法:</strong> Fixtures 是实际成交价,是租船谈判最直接的参考。关注相同船型、相似船龄、相近期限的成交案例,可判断当前市场报价区间。绿色行=新造船延期,蓝色行=现代船,灰色行=老旧船。</p>
+                <p class="muted">数据来源:The Loadstar(转载Braemar)、Lloyd's List、Dynamar Monthly、Hellenic Shipping News等公开媒体。</p>
+            </div>
+        </section>
+
+        <!-- 市场事件时间线 -->
+        <section id="timeline" class="section">
+            <h2 class="section-title">市场事件时间线</h2>
+            <div class="timeline" id="timeline"></div>
+        </section>
+
+        <!-- 数据源说明 -->
+        <section id="sources" class="section">
+            <h2 class="section-title">数据源权威性说明</h2>
+            <p class="section-intro">本看板整合多方权威数据源,按权威性分级展示。付费数据源仅展示公开引用部分,完整数据需订阅。</p>
+            <div class="table-wrap">
+                <table class="data-table sources-table" id="sourcesTable">
+                    <thead>
+                        <tr>
+                            <th>数据源</th>
+                            <th>类型</th>
+                            <th>频率</th>
+                            <th>访问</th>
+                            <th>权威性</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 免责声明 -->
+        <section id="disclaimer" class="section disclaimer">
+            <h2 class="section-title">⚠️ 免责声明</h2>
+            <div class="disclaimer-box">
+                <p><strong>本看板仅供租船决策参考,不构成投资或交易建议。</strong></p>
+                <ul>
+                    <li>数据整合自公开渠道,部分历史数据为基于公开报道的估算,已注明来源</li>
+                    <li>完整 New ConTex 历史数据需 VHBS 会员订阅;Alphaliner/Clarkson 为付费数据</li>
+                    <li>实际租船成交以经纪商确认数据为准,本看板不承担任何交易损失责任</li>
+                    <li>数据自动更新可能因网络或源站变更而失败,请以原始数据源为准</li>
+                    <li>引用本看板数据请注明各数据源原始出处</li>
+                </ul>
+                <p class="muted">本看板由 GitHub Actions 每日北京时间 12:00 自动抓取更新,部署于 GitHub Pages。</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>集装箱船期租租金行情看板 · <a href="https://github.com" target="_blank" rel="noopener">GitHub 仓库</a> · 数据自动更新于每日北京时间 12:00</p>
+            <p class="muted small">数据源:VHBS New ConTex / Alphaliner / Clarkson Research / Braemar / Howe Robinson / Dynamar / Lloyd's List / The Loadstar</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

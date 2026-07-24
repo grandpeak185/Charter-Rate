@@ -1,0 +1,4 @@
+# 依赖:仅用Python标准库,无需安装第三方包
+# 如需更稳健的HTML解析,可启用beautifulsoup4(已注释在fetch_data.py中)
+# requests>=2.28.0  # 可选,urllib已足够
+# beautifulsoup4>=4.11.0  # 可选,用于更稳健的HTML解析

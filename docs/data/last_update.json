@@ -1,0 +1,190 @@
+{
+  "last_update_bjt": "2026-07-24 09:05:06 UTC+08:00",
+  "last_update_utc": "2026-07-24 01:05:06 UTC",
+  "fetch_status": {
+    "vhbs_newcontex": {
+      "fetched": 2,
+      "status": "OK",
+      "last_url": "https://www.vhbs.de/index.php?id=28"
+    },
+    "hellenic": {
+      "status": "Hellenic兜底(需手动维护)"
+    }
+  },
+  "data_sources": [
+    {
+      "id": "vhbs_newcontex",
+      "name": "VHBS New ConTex",
+      "full_name": "Vereinigung Hamburger und Bremer Schiffsmakler - New ConTex",
+      "type": "指数(综合+分船型)",
+      "frequency": "每周(周三)",
+      "access": "免费(官网公开最近2期);完整历史需会员订阅",
+      "url": "https://www.vhbs.de/index.php?id=28",
+      "authority": "★★★★★ 最权威免费指数",
+      "note": "汉堡不莱梅船舶经纪人协会发布,基于6船型(1100/1800/2500/2700/3500/4250 TEU)评估"
+    },
+    {
+      "id": "alphaliner",
+      "name": "Alphaliner",
+      "full_name": "Alphaliner (AXSMarine)",
+      "type": "评估价+fixtures+订单簿",
+      "frequency": "每周二Newsletter",
+      "access": "付费订阅;部分fixtures通过媒体公开",
+      "url": "https://www.axsmarine.com/alphaliner",
+      "authority": "★★★★★ 全球最权威",
+      "note": "全球集装箱船队/订单簿/租船成交最权威数据源,12月期租评估价"
+    },
+    {
+      "id": "clarkson",
+      "name": "Clarkson Research",
+      "full_name": "Clarkson Research (SIN平台)",
+      "type": "综合航运市场+TC评估",
+      "frequency": "每周五Weekly Highlights",
+      "access": "付费订阅(SIN);公开评论通过媒体",
+      "url": "https://sin.clarksons.net/",
+      "authority": "★★★★★ 百年权威",
+      "note": "跨船型最全,ClarkSea Index是行业基准"
+    },
+    {
+      "id": "hrci",
+      "name": "Howe Robinson HRCI",
+      "full_name": "Howe Robinson Container Index",
+      "type": "综合指数(14船型)",
+      "frequency": "每周",
+      "access": "付费;韩国KSG网站有历史图表",
+      "url": "https://www.ksg.co.kr/shippingGraph/hrci_graph.jsp",
+      "authority": "★★★★ 经纪商指数",
+      "note": "伦敦Howe Robinson发布,涵盖510-4300 TEU 14个船型"
+    },
+    {
+      "id": "hax",
+      "name": "HAX Hamburg Index",
+      "full_name": "Hamburg Index (VHSS)",
+      "type": "月度矩阵(美元/TEU/slot/天)",
+      "frequency": "每月初",
+      "access": "免费PDF(样本);完整需订阅",
+      "url": "https://test.vhbs.de/index.php?id=13",
+      "authority": "★★★★ VHSS发布",
+      "note": "按14t/slot/天计价,与New ConTex口径不同,适合跨船型比较"
+    },
+    {
+      "id": "braemar",
+      "name": "Braemar",
+      "full_name": "Braemar Shipbrokers",
+      "type": "fixtures+市场评论",
+      "frequency": "不定期(通过媒体公开)",
+      "access": "通过The Loadstar/Lloyd's List免费转载",
+      "url": "https://www.braemar.com/",
+      "authority": "★★★★ 主要经纪商",
+      "note": "通过媒体报道公开最新fixtures,是免费获取成交数据的重要渠道"
+    },
+    {
+      "id": "dynamar",
+      "name": "Dynamar",
+      "full_name": "DynaLiners Monthly",
+      "type": "月报(含HIX+New ConTex+fixtures)",
+      "frequency": "每月",
+      "access": "付费;样本PDF免费",
+      "url": "https://dynamar.com/",
+      "authority": "★★★★ 月度权威",
+      "note": "DynaLiners Monthly每月发布,含完整fixtures清单(样本PDF免费)"
+    },
+    {
+      "id": "lloydslist",
+      "name": "Lloyd's List",
+      "full_name": "Lloyd's List Intelligence",
+      "type": "新闻+fixtures",
+      "frequency": "每日",
+      "access": "付费;部分免费",
+      "url": "https://www.lloydslist.com/",
+      "authority": "★★★★ 百年航运媒体",
+      "note": "最权威的航运新闻媒体,常引用Braemar/VHBS数据"
+    },
+    {
+      "id": "loadstar",
+      "name": "The Loadstar",
+      "full_name": "The Loadstar",
+      "type": "新闻+fixtures",
+      "frequency": "每日",
+      "access": "免费",
+      "url": "https://theloadstar.com/",
+      "authority": "★★★ 免费媒体",
+      "note": "免费获取Braemar等经纪商fixtures的主要渠道"
+    },
+    {
+      "id": "hellenic",
+      "name": "Hellenic Shipping News",
+      "full_name": "Hellenic Shipping News Worldwide",
+      "type": "转载New ConTex周报",
+      "frequency": "每周",
+      "access": "免费",
+      "url": "https://www.hellenicshippingnews.com/",
+      "authority": "★★★ 转载源",
+      "note": "免费转载VHBS New ConTex每周评论,是历史数据重要补充来源"
+    }
+  ],
+  "market_events": [
+    [
+      "2026-01-15",
+      "市场进入2026年: New ConTex指数约1480点,春节期间市场未现明显放缓"
+    ],
+    [
+      "2026-02-10",
+      "Lloyd's List报道: 春节期租市场保持坚挺, 1100 TEU支线船需求强劲"
+    ],
+    [
+      "2026-02-19",
+      "SeaNews: New ConTex指数1487点, 大型船2026年运力已被预订一空,排队延至2027"
+    ],
+    [
+      "2026-02-22",
+      "Hapag-Lloyd与ZIM宣布合并,重塑集装箱航运格局"
+    ],
+    [
+      "2026-03-09",
+      "The Loadstar: 中东局势推升租船市场, CMA CGM以4.5万美元/天租入4400TEU船"
+    ],
+    [
+      "2026-04-10",
+      "VHBS Week 15: 市场延续温和上行"
+    ],
+    [
+      "2026-05-15",
+      "Euroseas Q1会议: 1年期TC混合参考价3.7万美元/天,远高于10年均值2.35万"
+    ],
+    [
+      "2026-06-17",
+      "《伊斯兰堡谅解备忘录》签署,中东冲突初步降级"
+    ],
+    [
+      "2026-06-30",
+      "Alphaliner 6月底评估: 8500TEU船12月期租7.6万美元/天"
+    ],
+    [
+      "2026-07-10",
+      "Clarksons发布上半年回顾: 集装箱船期租租金达非疫情期间最高水平"
+    ],
+    [
+      "2026-07-11",
+      "VHBS Week 28: New ConTex升至1580点"
+    ],
+    [
+      "2026-07-15",
+      "Braemar: 5300TEU新造船3年期租突破3万美元/天"
+    ],
+    [
+      "2026-07-16",
+      "VHBS官网: New ConTex 1585点,各船型租金全面上行"
+    ],
+    [
+      "2026-07-21",
+      "VHBS官网: New ConTex 1588点,续创新高"
+    ]
+  ],
+  "notes": [
+    "完整New ConTex历史数据需VHBS会员订阅,本站整合公开渠道数据",
+    "Alphaliner/Clarkson为付费数据,本站仅展示公开引用部分",
+    "fixtures来自媒体报道(Braemar/Lloyd's List/The Loadstar/Dynamar)",
+    "数据仅供租船决策参考,实际成交以经纪商确认数据为准"
+  ]
+}

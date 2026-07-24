@@ -68,14 +68,14 @@
         <section id="rates-by-type" class="section">
             <h2 class="section-title">分船型日租金(USD/天) <span class="source-tag vhbs">VHBS New ConTex</span></h2>
             <div class="controls">
-                <label>选择船型:</label>
+                <label>选择船型(默认模式):</label>
                 <div class="ship-type-filters" id="shipTypeFilters"></div>
-                <label class="period-label">期限:
+                <label class="period-label">或按期限切换:
                     <select id="periodSelect">
-                        <option value="default">默认(6/12个月)</option>
-                        <option value="6m">6个月期</option>
-                        <option value="12m">12个月期</option>
-                        <option value="24m">24个月期</option>
+                        <option value="default">默认(需手动选择船型)</option>
+                        <option value="6m">6个月期(1100/1800 TEU)</option>
+                        <option value="12m">12个月期(2500-4250 TEU)</option>
+                        <option value="24m">24个月期(大船)</option>
                     </select>
                 </label>
             </div>
@@ -83,7 +83,12 @@
                 <canvas id="ratesChart"></canvas>
             </div>
             <div class="chart-note">
-                <p>📈 <strong>说明:</strong> 1100/1800 TEU 为6个月期,2500/2700/3500/4250 TEU 为12个月期;24个月期为大船附加信息列。期租期限越长,租金通常越高。</p>
+                <p>📈 <strong>交互说明:</strong></p>
+                <ul style="margin:8px 0 0 20px;line-height:1.7;">
+                    <li><strong>默认模式:</strong>不预设任何船型，您可点击上方船型筛选器，选择感兴趣的船型组合后，图表只显示选定的数据</li>
+                    <li><strong>按期限切换:</strong>选择"6个月期/12个月期/24个月期"会自动显示对应期限的船型组</li>
+                    <li>1100/1800 TEU 通常为6个月期，2500-4250 TEU 为12个月期，5700/6500 TEU 见于24个月期</li>
+                </ul>
             </div>
         </section>
 

@@ -33,7 +33,7 @@ let state = {
     timeSeries: null,
     fixtures: null,
     meta: null,
-    activeShipTypes: new Set(['1100', '1800', '2500', '2700', '3500', '4250']),
+    activeShipTypes: new Set(),  // 默认不选中，用户手动选择后才显示
     period: 'default',
     contexChart: null,
     ratesChart: null,
@@ -308,19 +308,45 @@ function renderRatesChart() {
     // 确定要显示的船型(根据期限筛选)
     let typesToShow;
     if (state.period === '6m') {
+        // 6个月期：固定显示1100/1800
         typesToShow = ['1100', '1800'];
     } else if (state.period === '12m') {
+        // 12个月期：固定显示2500/2700/3500/4250
         typesToShow = ['2500', '2700', '3500', '4250'];
     } else if (state.period === '24m') {
+        // 24个月期：固定显示大船
         typesToShow = ['2500_24m', '2700_24m', '3500_24m', '4250_24m', '5700_24m', '6500_24m'];
     } else {
+        // default 模式：只显示用户在筛选器中选中的船型
         typesToShow = Array.from(state.activeShipTypes);
-    }
-
-    // 过滤掉 _24m / _12m 后缀的,默认模式只显示主船型
-    if (state.period === 'default') {
+        // 过滤掉带后缀的（default模式下只显示主船型）
         typesToShow = typesToShow.filter(t => !t.includes('_'));
     }
+
+    // 如果没有任何选中的船型，显示友好提示
+    if (typesToShow.length === 0) {
+        if (state.ratesChart) {
+            state.ratesChart.destroy();
+            state.ratesChart = null;
+        }
+        // 在 canvas 上方或旁边显示提示
+        const chartContainer = document.querySelector('#ratesChart').parentElement;
+        let hint = chartContainer.querySelector('.no-data-hint');
+        if (!hint) {
+            hint = document.createElement('div');
+            hint.className = 'no-data-hint';
+            hint.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#718096;font-size:14px;text-align:center;';
+            chartContainer.style.position = 'relative';
+            chartContainer.appendChild(hint);
+        }
+        hint.innerHTML = '👆 请在上方选择船型，或切换期限以查看对应数据';
+        return;
+    }
+
+    // 移除提示（如果存在）
+    const chartContainer = document.querySelector('#ratesChart').parentElement;
+    const existingHint = chartContainer.querySelector('.no-data-hint');
+    if (existingHint) existingHint.remove();
 
     // 构建每个船型的数据序列
     const datasets = typesToShow.map(t => {

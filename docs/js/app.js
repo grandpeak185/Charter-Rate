@@ -444,8 +444,9 @@ function renderRatesChart() {
             scales: {
                 x: {
                     type: 'time',
-                    time: { unit: 'month', displayFormats: { month: 'yyyy-MM' } },
-                    title: { display: true, text: '日期' }
+                    time: { unit: 'day', displayFormats: { day: 'MM-dd' } },
+                    title: { display: true, text: '日期' },
+                    ticks: { maxTicksLimit: 10 }
                 },
                 y: {
                     title: { display: true, text: 'USD/天' },

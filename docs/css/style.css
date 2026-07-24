@@ -351,9 +351,9 @@ a:hover { text-decoration: underline; }
 .data-table .num { font-variant-numeric: tabular-nums; font-weight: 600; }
 .data-table .source-cell { font-size: 11px; color: var(--text-muted); }
 
-.fixtures-table tr.row-newbuild { background: #f0fff4; }
-.fixtures-table tr.row-modern { background: #ebf8ff; }
-.fixtures-table tr.row-old { background: #fafafa; }
+.fixtures-table tr.row-newbuild { background: #c6f6d5; }
+.fixtures-table tr.row-modern { background: #bee3f8; }
+.fixtures-table tr.row-old { background: #e2e8f0; }
 
 /* ========== Timeline ========== */
 .timeline {

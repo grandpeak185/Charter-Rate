@@ -267,11 +267,8 @@ function renderCombinationFilters() {
 
     typeContainer.innerHTML = allTypes.map(t => {
         const color = SHIP_TYPE_COLORS[t] || COLORS.muted;
-        const hasData = state.timeSeries.rates_by_type.some(snap =>
-            allPeriods.some(p => snap.rates[`${t}_${p}`] !== undefined)
-        );
         return `
-            <div class="ship-type-chip ${hasData ? '' : 'disabled'}" data-type="${t}">
+            <div class="ship-type-chip" data-type="${t}">
                 <span class="color-dot" style="background:${color}"></span>
                 ${t} TEU
             </div>
@@ -288,10 +285,9 @@ function renderCombinationFilters() {
     }).join('');
 
     typeContainer.querySelectorAll('.ship-type-chip').forEach(chip => {
-        if (chip.classList.contains('disabled')) return;
         chip.addEventListener('click', () => {
             const teu = chip.dataset.type;
-            const selectedPeriods = periodContainer.querySelectorAll('.period-chip.active').map(c => c.dataset.period);
+            const selectedPeriods = Array.from(periodContainer.querySelectorAll('.period-chip.active')).map(c => c.dataset.period);
             if (selectedPeriods.length === 0) {
                 showToast('请先选择期限');
                 return;
@@ -316,7 +312,7 @@ function renderCombinationFilters() {
 
             if (!isActive) {
                 chip.classList.add('active');
-                const selectedTypes = typeContainer.querySelectorAll('.ship-type-chip.active').map(c => c.dataset.type);
+                const selectedTypes = Array.from(typeContainer.querySelectorAll('.ship-type-chip.active')).map(c => c.dataset.type);
                 selectedTypes.forEach(t => {
                     state.selectedCombinations.add(`${t}_${p}`);
                 });

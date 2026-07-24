@@ -43,7 +43,8 @@ let state = {
     timeSeries: null,
     fixtures: null,
     meta: null,
-    selectedCombinations: new Set(),
+    selectedTypes: new Set(),
+    selectedPeriods: new Set(),
     contexChart: null,
     ratesChart: null,
 };
@@ -267,8 +268,9 @@ function renderCombinationFilters() {
 
     typeContainer.innerHTML = allTypes.map(t => {
         const color = SHIP_TYPE_COLORS[t] || COLORS.muted;
+        const isActive = state.selectedTypes.has(t);
         return `
-            <div class="ship-type-chip" data-type="${t}">
+            <div class="ship-type-chip ${isActive ? 'active' : ''}" data-type="${t}">
                 <span class="color-dot" style="background:${color}"></span>
                 ${t} TEU
             </div>
@@ -277,8 +279,9 @@ function renderCombinationFilters() {
 
     periodContainer.innerHTML = allPeriods.map(p => {
         const color = PERIOD_COLORS[p];
+        const isActive = state.selectedPeriods.has(p);
         return `
-            <div class="period-chip" data-period="${p}" style="--period-color:${color}">
+            <div class="period-chip ${isActive ? 'active' : ''}" data-period="${p}" style="--period-color:${color}">
                 ${PERIOD_LABELS[p]}
             </div>
         `;
@@ -287,19 +290,13 @@ function renderCombinationFilters() {
     typeContainer.querySelectorAll('.ship-type-chip').forEach(chip => {
         chip.addEventListener('click', () => {
             const teu = chip.dataset.type;
-            const selectedPeriods = Array.from(periodContainer.querySelectorAll('.period-chip.active')).map(c => c.dataset.period);
-            if (selectedPeriods.length === 0) {
-                showToast('请先选择期限');
-                return;
+            if (state.selectedTypes.has(teu)) {
+                state.selectedTypes.delete(teu);
+                chip.classList.remove('active');
+            } else {
+                state.selectedTypes.add(teu);
+                chip.classList.add('active');
             }
-            selectedPeriods.forEach(p => {
-                const combo = `${teu}_${p}`;
-                if (state.selectedCombinations.has(combo)) {
-                    state.selectedCombinations.delete(combo);
-                } else {
-                    state.selectedCombinations.add(combo);
-                }
-            });
             updateFilterUI();
             renderRatesChart();
         });
@@ -308,19 +305,12 @@ function renderCombinationFilters() {
     periodContainer.querySelectorAll('.period-chip').forEach(chip => {
         chip.addEventListener('click', () => {
             const p = chip.dataset.period;
-            const isActive = chip.classList.contains('active');
-
-            if (!isActive) {
-                chip.classList.add('active');
-                const selectedTypes = Array.from(typeContainer.querySelectorAll('.ship-type-chip.active')).map(c => c.dataset.type);
-                selectedTypes.forEach(t => {
-                    state.selectedCombinations.add(`${t}_${p}`);
-                });
-            } else {
+            if (state.selectedPeriods.has(p)) {
+                state.selectedPeriods.delete(p);
                 chip.classList.remove('active');
-                allTypes.forEach(t => {
-                    state.selectedCombinations.delete(`${t}_${p}`);
-                });
+            } else {
+                state.selectedPeriods.add(p);
+                chip.classList.add('active');
             }
             updateFilterUI();
             renderRatesChart();
@@ -329,7 +319,8 @@ function renderCombinationFilters() {
 
     const clearBtn = document.getElementById('clearFilters');
     clearBtn.addEventListener('click', () => {
-        state.selectedCombinations.clear();
+        state.selectedTypes.clear();
+        state.selectedPeriods.clear();
         updateFilterUI();
         renderRatesChart();
     });
@@ -337,17 +328,15 @@ function renderCombinationFilters() {
     function updateFilterUI() {
         typeContainer.querySelectorAll('.ship-type-chip').forEach(chip => {
             const teu = chip.dataset.type;
-            const hasAnyPeriod = allPeriods.some(p => state.selectedCombinations.has(`${teu}_${p}`));
-            chip.classList.toggle('active', hasAnyPeriod);
+            chip.classList.toggle('active', state.selectedTypes.has(teu));
         });
 
         periodContainer.querySelectorAll('.period-chip').forEach(chip => {
             const p = chip.dataset.period;
-            const hasAnyType = allTypes.some(t => state.selectedCombinations.has(`${t}_${p}`));
-            chip.classList.toggle('active', hasAnyType);
+            chip.classList.toggle('active', state.selectedPeriods.has(p));
         });
 
-        const selectedCount = state.selectedCombinations.size;
+        const selectedCount = state.selectedTypes.size * state.selectedPeriods.size;
         clearBtn.style.display = selectedCount > 0 ? 'inline-block' : 'none';
     }
 }
@@ -367,7 +356,13 @@ function showToast(msg) {
 function renderRatesChart() {
     const ctx = document.getElementById('ratesChart').getContext('2d');
     const allSnapshots = state.timeSeries.rates_by_type;
-    const combinations = Array.from(state.selectedCombinations);
+
+    const combinations = [];
+    state.selectedTypes.forEach(teu => {
+        state.selectedPeriods.forEach(p => {
+            combinations.push(`${teu}_${p}`);
+        });
+    });
 
     if (combinations.length === 0) {
         if (state.ratesChart) {
@@ -394,7 +389,6 @@ function renderRatesChart() {
     const datasets = combinations.map(combo => {
         const [teu, period] = combo.split('_');
         const baseColor = SHIP_TYPE_COLORS[teu] || COLORS.muted;
-        const periodColor = PERIOD_COLORS[period] || COLORS.muted;
         const color = period === '6m' ? baseColor + 'CC' : period === '12m' ? baseColor : baseColor + '88';
 
         const label = `${teu} TEU · ${PERIOD_LABELS[period]}`;

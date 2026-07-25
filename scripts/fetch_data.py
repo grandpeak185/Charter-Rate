@@ -268,6 +268,7 @@ def main():
 
     # 元信息
     meta = {
+        "last_update": datetime.now(BJT).strftime("%Y-%m-%d %H:%M:%S %Z"),
         "last_update_bjt": datetime.now(BJT).strftime("%Y-%m-%d %H:%M:%S %Z"),
         "last_update_utc": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
         "fetch_status": fetch_status,

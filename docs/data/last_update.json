@@ -1,11 +1,11 @@
 {
-  "last_update": "2026-07-25 13:36:55 UTC+08:00",
-  "last_update_bjt": "2026-07-25 13:36:55 UTC+08:00",
-  "last_update_utc": "2026-07-25 05:36:55 UTC",
+  "last_update": "2026-07-26 13:26:29 UTC+08:00",
+  "last_update_bjt": "2026-07-26 13:26:29 UTC+08:00",
+  "last_update_utc": "2026-07-26 05:26:29 UTC",
   "fetch_status": {
     "vhbs_newcontex": {
-      "fetched": 2,
-      "status": "OK",
+      "fetched": 0,
+      "status": "VHBS官网抓取失败(网络错误)",
       "last_url": "https://www.vhbs.de/index.php?id=28"
     },
     "hellenic": {
